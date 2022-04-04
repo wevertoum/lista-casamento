@@ -1,59 +1,71 @@
 .container {
-  padding: 0 2rem;
-}
-
-.main {
   min-height: 100vh;
   height: 100vh;
-  padding: 4rem 0;
-  flex: 1;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-@media screen and (max-width: 768px) {
   .main {
-    flex-direction: column;
+    height: 100%;
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+
+    @media screen and (max-width: 768px) {
+      flex-direction: column-reverse;
+    }
+
+    .form-contain {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      width: 100%;
+      @media screen and (max-width: 768px) {
+        height: auto;
+      }
+      form {
+        width: 100%;
+        padding: 0 6em;
+        @media screen and (max-width: 768px) {
+          padding: 0 3em;
+        }
+      }
+    }
+
+    .slider-contain {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      @media screen and (max-width: 768px) {
+        height: auto;
+        width: 100%;
+      }
+
+      .slider {
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 100%;
+        height: 100%;
+        transition: all 0.2s ease-in-out;
+        animation: slideanimatiom 20s infinite;
+      }
+
+      .overlay {
+        color: #fff;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        transition: all 0.2s ease-in-out;
+      }
+    }
   }
 }
 
-.formContain {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.sliderContain {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.slider {
-  background-repeat: no-repeat;
-  background-size: cover;
-  width: 100%;
-  height: 100%;
-  transition: all 0.2s ease-in-out;
-  animation: slide 20s infinite;
-}
-
-.overlay {
-  color: #fff;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  transition: all 0.2s ease-in-out;
-}
-
-@keyframes slide {
+@keyframes slideanimatiom {
   0% {
     opacity: 0;
     background-image: url("https://img.cancaonova.com/cnimages/canais/uploads/sites/6/2016/07/formacao_casamento-e-mais-que-uma-cerimonia-bonita.jpg");
@@ -107,25 +119,4 @@
     opacity: 0;
     background-image: url("https://proximaparadaaltar.files.wordpress.com/2013/06/decoracao-casamento-simples-foto11.jpg?w=640");
   }
-}
-
-.form {
-  width: 100%;
-  max-width: 500px;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 2rem;
-}
-
-.label {
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
-}
-
-.input {
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 0.5rem 1rem;
-  font-size: 1.2rem;
-  width: 100%;
 }

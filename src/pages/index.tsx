@@ -1,14 +1,19 @@
-import { Button } from "antd";
+import { useCallback } from "react";
+import { Button, Form, Input } from "antd";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import defaultFormRules from "utils/defaultFormRules";
 require("./Home.less");
 
 const Home: NextPage = () => {
-  const [username, setUsername] = useState("");
+  const [form] = Form.useForm();
 
   const router = useRouter();
+
+  const onFinish = useCallback((values: Models.Usuario) => {
+    router.push(`/presentes-disponiveis/${values.nome}`);
+  }, []);
 
   return (
     <div className="container">
@@ -21,32 +26,21 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="main">
-        <div className="formContain">
-          <form
-            className="form"
-            onSubmit={(e) => {
-              e.preventDefault();
-              router.push(`/presentes-disponiveis/${username}`);
-            }}
-          >
-            <label className="label">
-              <input
-                className="input"
-                type="text"
-                placeholder="Seu nome :)"
-                onChange={(e) => setUsername(e.target.value)}
-              />
-            </label>
-            <Button
-              disabled={username.length === 0}
-              className="button"
-              htmlType="submit"
+        <div className="form-contain">
+          <Form onFinish={onFinish} layout="vertical" form={form}>
+            <Form.Item
+              name="nome"
+              label="Oi, vem sempre aqui?"
+              rules={defaultFormRules}
             >
-              Ver presentes disponíveis
+              <Input placeholder="Informe seu nome" />
+            </Form.Item>
+            <Button type="primary" htmlType="submit">
+              Enviar
             </Button>
-          </form>
+          </Form>
         </div>
-        <div className="sliderContain">
+        <div className="slider-contain">
           <div className="slider">
             <div className="feature"></div>
             <div className="overlay"></div>
