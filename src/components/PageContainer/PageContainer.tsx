@@ -5,26 +5,28 @@ require("./PageContainer.less");
 interface Props {
   children: React.ReactNode;
   pageTitle: string;
-  metaContent: string;
+  showCredits?: boolean;
 }
 const PageContainer: React.FC<Props> = ({
   children,
   pageTitle,
-  metaContent,
+  showCredits = false,
 }) => {
   return (
     <div className="container">
       <Head>
         <title>{pageTitle}</title>
-        <meta name={pageTitle} content={metaContent} />
+        <meta name={pageTitle} content="Casamento da nana e do gui" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {children}
-      <footer className="credits">
-        <a target="_blank" href="https://weverton.me">
-          dev by wev
-        </a>
-      </footer>
+      {showCredits && (
+        <footer className="credits">
+          <a target="_blank" href="https://weverton.me">
+            dev by wev
+          </a>
+        </footer>
+      )}
     </div>
   );
 };

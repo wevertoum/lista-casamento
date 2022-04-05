@@ -18,10 +18,7 @@ const Home: NextPage = () => {
   }, []);
 
   return (
-    <PageContainer
-      pageTitle="Nana & Gui"
-      metaContent="Casamento da nana e do gui"
-    >
+    <PageContainer pageTitle={"Nana & Gui"} showCredits>
       <main className="main">
         <div className="form-contain">
           <Form onFinish={onFinish} layout="vertical" form={form}>

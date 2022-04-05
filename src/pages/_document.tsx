@@ -21,10 +21,10 @@ class MyDocument extends Document {
           <link
             rel="preconnect"
             href="https://fonts.gstatic.com"
-            crossOrigin="true"
+            crossOrigin="anonymous"
           />
           <link
-            href="https://fonts.googleapis.com/css2?family=Grape+Nuts&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@1,300&display=swap"
             rel="stylesheet"
           />
         </Head>

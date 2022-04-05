@@ -1,0 +1,55 @@
+.presentes-disponiveis {
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .title-header {
+    padding: 16px 16px 0px 16px;
+    text-align: center;
+  }
+
+  .progress {
+    padding: 16px;
+    margin: 0 16px;
+    .ant-steps {
+      .ant-steps-item:last-child {
+        .ant-steps-item-container {
+          .ant-steps-item-content {
+            margin-right: 4px;
+          }
+        }
+      }
+    }
+  }
+
+  .presentes-content {
+    padding: 0px 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    align-items: center;
+
+    .steps-content {
+      margin-top: 16px;
+      height: fit-content;
+      width: 100%;
+      padding: 16px;
+      text-align: center;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 2px;
+    }
+
+    .steps-action {
+      display: flex;
+      justify-content: space-between;
+      width: 300px;
+      margin: 32px;
+      padding-bottom: 24px;
+    }
+  }
+}
