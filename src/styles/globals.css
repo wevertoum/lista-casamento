@@ -16,6 +16,11 @@
   }
 }
 
+@font-face {
+  font-family: "RoxboroughCF";
+  src: url("/fonts/RoxboroughCF.ttf");
+}
+
 html,
 body {
   padding: 0;
@@ -29,9 +34,9 @@ a {
 
 * {
   box-sizing: border-box;
-  font: 400 1rem "Nunito Sans", sans-serif;
+  font: 400 1rem "RoxboroughCF", sans-serif;
   scrollbar-width: 3px;
-  scrollbar-color: #ffa500 #eff2f5;
+  scrollbar-color: #314528 #eff2f5;
 }
 
 *::-webkit-scrollbar {
@@ -44,7 +49,7 @@ a {
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: #ffa500;
+  background-color: #314528;
   border-radius: 20px;
   margin: 1px;
 }

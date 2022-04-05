@@ -1,4 +1,4 @@
-const listaPresentes = [
+const opcoesLista = [
   {
     nome: "Microondas",
     url: "https://www.zoom.com.br/microondas/micro-ondas-electrolux-34-litros-meo44?_lc=88&searchterm=microondas",
@@ -103,4 +103,4 @@ const listaPresentes = [
   },
 ] as Models.Presente[];
 
-export default listaPresentes;
+export default opcoesLista;

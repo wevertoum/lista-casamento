@@ -8,12 +8,12 @@ require("./ListaItensDisponiveis.less");
 
 interface Props {
   opcoesLista: Models.Presente[];
-  onChange: (presentes: Models.Presente[]) => void;
+  setSelectedPresentes: (presentes: Models.Presente[]) => void;
   selectedPresentes: Models.Presente[];
 }
 const ListaItensDisponiveis: React.FC<Props> = ({
   opcoesLista,
-  onChange,
+  setSelectedPresentes: onChange,
   selectedPresentes = [],
 }) => {
   const [width] = useWindowSize();
@@ -74,7 +74,7 @@ const ListaItensDisponiveis: React.FC<Props> = ({
                     <MaterialIcon
                       path={mdiGiftOutline}
                       size={1.8}
-                      color="#ffa600b0"
+                      color="#a87008b0"
                     />
                   </div>
 
@@ -86,11 +86,11 @@ const ListaItensDisponiveis: React.FC<Props> = ({
                         <MaterialIcon
                           path={mdiOpenInNew}
                           size={0.7}
-                          color="#0099ffaf"
+                          color="#314528af"
                         />
                       }
                       style={{
-                        color: "#0099ffaf",
+                        color: "#314528af",
                       }}
                       shape="round"
                       type="text"

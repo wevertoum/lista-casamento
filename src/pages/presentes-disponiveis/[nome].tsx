@@ -1,11 +1,12 @@
 import { mdiArrowLeftCircle, mdiArrowRightCircle, mdiCheckAll } from "@mdi/js";
 import { Typography, Steps, Button, message } from "antd";
+import InfosDoPedido from "components/InfosDoPedido";
 import ListaItensDisponiveis from "components/ListaItensDisponiveis";
 import MaterialIcon from "components/MaterialIcon";
 import PageContainer from "components/PageContainer/PageContainer";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import listaPresentes from "utils/listaPresentes";
+import opcoesLista from "utils/opcoesLista";
 require("./PresentesDisponiveis.less");
 
 const { Step } = Steps;
@@ -21,17 +22,15 @@ const PresentesDisponiveis: React.FC<Props> = () => {
   const steps = [
     {
       title: "Opcões 🧐",
-      content: (
-        <ListaItensDisponiveis
-          opcoesLista={listaPresentes}
-          onChange={setSelectedPresentes}
-          selectedPresentes={selectedPresentes}
-        />
-      ),
+      content: ListaItensDisponiveis({
+        opcoesLista,
+        setSelectedPresentes,
+        selectedPresentes,
+      }),
     },
     {
       title: "Infos 📋",
-      content: "Second-content",
+      content: InfosDoPedido({ selectedPresentes }),
     },
     {
       title: "Check ✅",
