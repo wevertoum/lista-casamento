@@ -1,68 +1,64 @@
-.container {
-  min-height: 100vh;
-  height: 100vh;
-  .main {
-    height: 100%;
-    flex: 1;
+.main {
+  height: 100%;
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column-reverse;
+  }
+
+  .form-contain {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    flex: 1;
+    justify-content: center;
     align-items: center;
-    flex-direction: row;
-
+    height: 100vh;
+    width: 100%;
     @media screen and (max-width: 768px) {
-      flex-direction: column-reverse;
+      height: auto;
+      flex: 0.3;
     }
-
-    .form-contain {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+    form {
       width: 100%;
+      padding: 0 6em;
       @media screen and (max-width: 768px) {
-        height: auto;
-        flex: 0.3;
-      }
-      form {
-        width: 100%;
-        padding: 0 6em;
-        @media screen and (max-width: 768px) {
-          padding: 0 3em;
-        }
+        padding: 0 3em;
       }
     }
+  }
 
-    .slider-contain {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      @media screen and (max-width: 768px) {
-        height: auto;
-        flex: 0.7;
-        width: 100%;
-      }
+  .slider-contain {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    @media screen and (max-width: 768px) {
+      height: auto;
+      flex: 0.7;
+      width: 100%;
+    }
 
-      .slider {
-        background-repeat: no-repeat;
-        background-size: cover;
-        width: 100%;
-        height: 100%;
-        transition: all 0.2s ease-in-out;
-        animation: slideanimatiom 20s infinite;
-      }
+    .slider {
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 100%;
+      height: 100%;
+      transition: all 0.2s ease-in-out;
+      animation: slideanimatiom 20s infinite;
+    }
 
-      .overlay {
-        color: #fff;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(255, 165, 0, 0.2);
-        transition: all 0.2s ease-in-out;
-      }
+    .overlay {
+      color: #fff;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 165, 0, 0.2);
+      transition: all 0.2s ease-in-out;
     }
   }
 }

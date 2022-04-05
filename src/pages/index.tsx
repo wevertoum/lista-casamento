@@ -1,11 +1,11 @@
 import { useCallback } from "react";
 import { Button, Form, Input } from "antd";
 import type { NextPage } from "next";
-import Head from "next/head";
 import { useRouter } from "next/router";
 import defaultFormRules from "utils/defaultFormRules";
 import { mdiGift } from "@mdi/js";
 import MaterialIcon from "components/MaterialIcon";
+import PageContainer from "components/PageContainer/PageContainer";
 require("./Home.less");
 
 const Home: NextPage = () => {
@@ -18,15 +18,10 @@ const Home: NextPage = () => {
   }, []);
 
   return (
-    <div className="container">
-      <Head>
-        <title>Casamento nana e gui</title>
-        <meta
-          name="casamento"
-          content="Lista de itens para casamento da nana e do gui"
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <PageContainer
+      pageTitle="Nana & Gui"
+      metaContent="Casamento da nana e do gui"
+    >
       <main className="main">
         <div className="form-contain">
           <Form onFinish={onFinish} layout="vertical" form={form}>
@@ -54,7 +49,7 @@ const Home: NextPage = () => {
           </div>
         </div>
       </main>
-    </div>
+    </PageContainer>
   );
 };
 
