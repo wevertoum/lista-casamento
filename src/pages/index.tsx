@@ -4,6 +4,8 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import defaultFormRules from "utils/defaultFormRules";
+import { MaterialIcon } from "components/MaterialIcon";
+import { mdiGift } from "@mdi/js";
 require("./Home.less");
 
 const Home: NextPage = () => {
@@ -30,13 +32,18 @@ const Home: NextPage = () => {
           <Form onFinish={onFinish} layout="vertical" form={form}>
             <Form.Item
               name="nome"
-              label="Oi, vem sempre aqui?"
+              label="Olá, é um prazer te ter aqui :)"
               rules={defaultFormRules}
             >
-              <Input placeholder="Informe seu nome" />
+              <Input placeholder="Digite seu nome" />
             </Form.Item>
-            <Button type="primary" htmlType="submit">
-              Enviar
+            <Button
+              shape="round"
+              icon={<MaterialIcon path={mdiGift} />}
+              type="primary"
+              htmlType="submit"
+            >
+              Ver lista de presentes
             </Button>
           </Form>
         </div>
