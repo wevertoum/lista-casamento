@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Typography } from "antd";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import defaultFormRules from "utils/defaultFormRules";
@@ -21,10 +21,11 @@ const Home: NextPage = () => {
     <PageContainer pageTitle={"Nana & Gui"} showCredits>
       <main className="main">
         <div className="form-contain">
+          <Typography.Title level={1}>Bem vindo 🥰🥳💍👰🏽‍♀️🤵🏾‍♂️</Typography.Title>
           <Form onFinish={onFinish} layout="vertical" form={form}>
             <Form.Item
               name="nome"
-              label="Olá, é um prazer te ter aqui :)"
+              label="Me diga seu nome 😊"
               rules={defaultFormRules}
             >
               <Input placeholder="Digite seu nome" />

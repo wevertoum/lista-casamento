@@ -13,7 +13,7 @@ const { Step } = Steps;
 interface Props {}
 const PresentesDisponiveis: React.FC<Props> = () => {
   const router = useRouter();
-  const {} = router.query;
+  const { nome } = router.query;
   const [selectedPresentes, setSelectedPresentes] = useState(
     [] as Models.Presente[]
   );
@@ -54,9 +54,8 @@ const PresentesDisponiveis: React.FC<Props> = () => {
       <div className="presentes-disponiveis">
         <div className="title-header">
           <Typography.Title level={2}>
-            Escolha os presentes 🎁🙏🏽🥳
+            {nome}, escolha seus presentes 🎁
           </Typography.Title>
-          <Divider />
         </div>
 
         <div className="progress">
