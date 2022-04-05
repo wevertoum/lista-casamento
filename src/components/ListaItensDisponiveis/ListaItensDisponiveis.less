@@ -7,7 +7,7 @@
     display: flex;
     align-items: center;
     .item-presente {
-      height: 100px;
+      height: 120px;
       width: 200px;
       border-radius: 9px;
       background: #ffffff;
@@ -16,6 +16,9 @@
       align-items: center;
       &.selected {
         border: 2px solid @primary-color;
+      }
+      &.reservado {
+        filter: grayscale(100%);
       }
 
       .icon {

@@ -5,5 +5,6 @@ namespace Models {
     nome: string;
     url: string;
     id: number;
+    status: "disponivel" | "reservado";
   }
 }

@@ -1,5 +1,5 @@
 import { mdiArrowLeftCircle, mdiArrowRightCircle, mdiCheckAll } from "@mdi/js";
-import { Divider, Typography, Steps, Button, message } from "antd";
+import { Typography, Steps, Button, message } from "antd";
 import ListaItensDisponiveis from "components/ListaItensDisponiveis";
 import MaterialIcon from "components/MaterialIcon";
 import PageContainer from "components/PageContainer/PageContainer";

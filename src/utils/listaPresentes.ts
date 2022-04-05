@@ -2,7 +2,8 @@ const listaPresentes = [
   {
     nome: "Microondas",
     url: "https://www.zoom.com.br/microondas/micro-ondas-electrolux-34-litros-meo44?_lc=88&searchterm=microondas",
-    id: 8439352761778176
+    id: 8439352761778176,
+    status: "reservado"
   },
   {
     nome: "Geladeira",
@@ -17,7 +18,8 @@ const listaPresentes = [
   {
     nome: "Ferro de passar",
     url: "https://www.zoom.com.br/ferro-passar-roupas/ferro-de-passar-roupas-a-seco-black-decker-vfa?_lc=88&searchterm=ferro%20de%20passar",
-    id: 9002676681441280
+    id: 9002676681441280,
+    status: "reservado"
   }, {
     nome: "Microondas",
     url: "https://www.zoom.com.br/microondas/micro-ondas-electrolux-34-litros-meo44?_lc=88&searchterm=microondas",
@@ -40,7 +42,8 @@ const listaPresentes = [
   }, {
     nome: "Microondas",
     url: "https://www.zoom.com.br/microondas/micro-ondas-electrolux-34-litros-meo44?_lc=88&searchterm=microondas",
-    id: 2635000224677888
+    id: 2635000224677888,
+    status: "reservado"
   },
   {
     nome: "Geladeira",
@@ -50,7 +53,8 @@ const listaPresentes = [
   {
     nome: "Fogão",
     url: "https://www.zoom.com.br/fogao/fogao-de-piso-atlas-top-glass-4-bocas-acendimento-automatico?_lc=88&searchterm=fog%C3%A3o",
-    id: 7444488888778752
+    id: 7444488888778752,
+    status: "reservado"
   },
   {
     nome: "Ferro de passar",
@@ -74,7 +78,8 @@ const listaPresentes = [
   {
     nome: "Ferro de passar",
     url: "https://www.zoom.com.br/ferro-passar-roupas/ferro-de-passar-roupas-a-seco-black-decker-vfa?_lc=88&searchterm=ferro%20de%20passar",
-    id: 8101401548816384
+    id: 8101401548816384,
+    status: "reservado"
   }, {
     nome: "Microondas",
     url: "https://www.zoom.com.br/microondas/micro-ondas-electrolux-34-litros-meo44?_lc=88&searchterm=microondas",
@@ -93,7 +98,8 @@ const listaPresentes = [
   {
     nome: "Ferro de passar",
     url: "https://www.zoom.com.br/ferro-passar-roupas/ferro-de-passar-roupas-a-seco-black-decker-vfa?_lc=88&searchterm=ferro%20de%20passar",
-    id: 2805520310206464
+    id: 2805520310206464,
+    status: "reservado"
   },
 ] as Models.Presente[];
 

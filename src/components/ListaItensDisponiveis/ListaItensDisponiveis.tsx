@@ -1,5 +1,5 @@
 import { mdiGiftOutline, mdiOpenInNew } from "@mdi/js";
-import { Button, Checkbox, Col, Row } from "antd";
+import { Badge, Button, Checkbox, Col, Row } from "antd";
 import MaterialIcon from "components/MaterialIcon";
 import useWindowSize from "hooks/useWindowSize";
 import React, { useMemo } from "react";
@@ -43,6 +43,7 @@ const ListaItensDisponiveis: React.FC<Props> = ({
             key={i}
           >
             <Checkbox
+              disabled={presente.status === "reservado"}
               key={presente.id}
               checked={selectedPresentes?.some((p) => p.id === presente.id)}
               onChange={(e) => {
@@ -55,43 +56,52 @@ const ListaItensDisponiveis: React.FC<Props> = ({
                 }
               }}
             >
-              <div
-                className={`item-presente ${
-                  selectedPresentes?.some((p) => p.id === presente.id)
-                    ? "selected"
-                    : ""
-                }`}
+              <Badge.Ribbon
+                color="#cecece"
+                text="Reservado"
+                style={{
+                  display: presente.status === "reservado" ? "block" : "none",
+                }}
               >
-                <div className="icon">
-                  <MaterialIcon
-                    path={mdiGiftOutline}
-                    size={1.8}
-                    color="#ffa600b0"
-                  />
-                </div>
+                <div
+                  className={`item-presente ${
+                    selectedPresentes?.some((p) => p.id === presente.id)
+                      ? "selected"
+                      : ""
+                  } ${presente.status === "reservado" ? "reservado" : ""}`}
+                >
+                  <div className="icon">
+                    <MaterialIcon
+                      path={mdiGiftOutline}
+                      size={1.8}
+                      color="#ffa600b0"
+                    />
+                  </div>
 
-                <div className="descricao-container">
-                  <small>{presente.nome}</small>
-                  <Button
-                    icon={
-                      <MaterialIcon
-                        path={mdiOpenInNew}
-                        size={0.7}
-                        color="#0099ffaf"
-                      />
-                    }
-                    style={{
-                      color: "#0099ffaf",
-                    }}
-                    shape="round"
-                    type="text"
-                    size="small"
-                    onClick={() => openLinkExterno(presente.url)}
-                  >
-                    Inspiração
-                  </Button>
+                  <div className="descricao-container">
+                    <small>{presente.nome}</small>
+                    <Button
+                      disabled={presente.status === "reservado"}
+                      icon={
+                        <MaterialIcon
+                          path={mdiOpenInNew}
+                          size={0.7}
+                          color="#0099ffaf"
+                        />
+                      }
+                      style={{
+                        color: "#0099ffaf",
+                      }}
+                      shape="round"
+                      type="text"
+                      size="small"
+                      onClick={() => openLinkExterno(presente.url)}
+                    >
+                      Inspiração
+                    </Button>
+                  </div>
                 </div>
-              </div>
+              </Badge.Ribbon>
             </Checkbox>
           </Col>
         ))}
