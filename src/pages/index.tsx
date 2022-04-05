@@ -4,8 +4,8 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import defaultFormRules from "utils/defaultFormRules";
-import { MaterialIcon } from "components/MaterialIcon";
 import { mdiGift } from "@mdi/js";
+import MaterialIcon from "components/MaterialIcon";
 require("./Home.less");
 
 const Home: NextPage = () => {
