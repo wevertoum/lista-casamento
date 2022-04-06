@@ -58,7 +58,7 @@ const InfosDoPedido: React.FC<Props> = ({
             </Typography.Paragraph>
           </>
         ),
-        type: "warning",
+        type: "info",
         showIcon: true,
       };
     }

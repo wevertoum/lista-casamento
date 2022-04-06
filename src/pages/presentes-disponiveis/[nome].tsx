@@ -1,5 +1,6 @@
 import { mdiArrowLeftCircle, mdiArrowRightCircle, mdiCheckAll } from "@mdi/js";
 import { Typography, Steps, Button, message } from "antd";
+import ConfirmFeedback from "components/ConfirmFeedback";
 import InfosDoPedido from "components/InfosDoPedido";
 import ListagemPresentes from "components/ListagemPresentes";
 import MaterialIcon from "components/MaterialIcon";
@@ -43,7 +44,10 @@ const PresentesDisponiveis: React.FC<Props> = () => {
     },
     {
       title: "✅",
-      content: "Last-content",
+      content: ConfirmFeedback({
+        pedido,
+        nome: nome as string,
+      }),
     },
   ];
 
