@@ -13,15 +13,20 @@ const Home: NextPage = () => {
 
   const router = useRouter();
 
-  const onFinish = useCallback((values: Models.Usuario) => {
-    router.push(`/presentes-disponiveis/${values.nome}`);
-  }, []);
+  const onFinish = useCallback(
+    (values: Models.Usuario) => {
+      router.push(`/presentes-disponiveis/${values.nome}`);
+    },
+    [router]
+  );
 
   return (
     <PageContainer pageTitle={"Nana & Gui"} showCredits>
       <main className="main">
         <div className="form-contain">
-          <Typography.Title level={1}>Bem vindo 🥰🥳💍👰🏽‍♀️🤵🏾‍♂️</Typography.Title>
+          <Typography.Title className="form-title" level={1}>
+            Bem vindo 🥰🥳💍👰🏽‍♀️🤵🏾‍♂️
+          </Typography.Title>
           <Form onFinish={onFinish} layout="vertical" form={form}>
             <Form.Item
               name="nome"
