@@ -22,7 +22,7 @@ const PageContainer: React.FC<Props> = ({
       {children}
       {showCredits && (
         <footer className="credits">
-          <a target="_blank" href="https://weverton.me">
+          <a target="_blank" href="https://weverton.me" rel="noreferrer">
             dev by wev
           </a>
         </footer>
