@@ -1,0 +1,29 @@
+.item-presente {
+  height: 120px;
+  width: 200px;
+  border-radius: 9px;
+  background: #ffffff;
+  box-shadow: 5px 5px 32px #e6e6e6, -5px -5px 32px #ffffff;
+  display: flex;
+  align-items: center;
+  &.selected {
+    border: 2px solid @primary-color;
+  }
+  &.disabled {
+    filter: grayscale(100%);
+  }
+
+  .icon {
+    margin-left: 16px;
+  }
+  .descricao-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    small {
+      font-size: 14px;
+      color: #333;
+      font-weight: bold;
+    }
+  }
+}

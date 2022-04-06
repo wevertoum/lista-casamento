@@ -1,7 +1,7 @@
 import { mdiArrowLeftCircle, mdiArrowRightCircle, mdiCheckAll } from "@mdi/js";
 import { Typography, Steps, Button, message } from "antd";
 import InfosDoPedido from "components/InfosDoPedido";
-import ListaItensDisponiveis from "components/ListaItensDisponiveis";
+import ListagemPresentes from "components/ListagemPresentes";
 import MaterialIcon from "components/MaterialIcon";
 import PageContainer from "components/PageContainer/PageContainer";
 import { useRouter } from "next/router";
@@ -15,25 +15,34 @@ interface Props {}
 const PresentesDisponiveis: React.FC<Props> = () => {
   const router = useRouter();
   const { nome } = router.query;
-  const [selectedPresentes, setSelectedPresentes] = useState(
-    [] as Models.Presente[]
-  );
+
+  const [pedido, setPedido] = useState<Models.Pedido>({} as Models.Pedido);
 
   const steps = [
     {
-      title: "Opcões 🧐",
-      content: ListaItensDisponiveis({
+      title: "🧐",
+      content: ListagemPresentes({
         opcoesLista,
-        setSelectedPresentes,
-        selectedPresentes,
+        onChange: (presentes) => {
+          setPedido({ ...pedido, presentes });
+        },
+        selectedPresentes: pedido.presentes,
       }),
     },
     {
-      title: "Infos 📋",
-      content: InfosDoPedido({ selectedPresentes }),
+      title: "📋",
+      content: InfosDoPedido({
+        pedido,
+        onSelectTipoEntrega: (tipoEntrega) => {
+          setPedido({ ...pedido, tipoEntrega });
+        },
+        onWriteMessage: (mensagem) => {
+          setPedido({ ...pedido, mensagem });
+        },
+      }),
     },
     {
-      title: "Check ✅",
+      title: "✅",
       content: "Last-content",
     },
   ];
@@ -95,7 +104,13 @@ const PresentesDisponiveis: React.FC<Props> = () => {
                 disabled={current === steps.length}
                 icon={<MaterialIcon path={mdiCheckAll} />}
                 type="primary"
-                onClick={() => message.success("Salvando seus presentes!")}
+                onClick={() => {
+                  console.log({
+                    ...pedido,
+                    nome: nome as string,
+                  });
+                  message.success("Salvando seus presentes!");
+                }}
               >
                 Finalizar
               </Button>
