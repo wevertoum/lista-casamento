@@ -7,9 +7,9 @@ import MaterialIcon from "components/MaterialIcon";
 import PageContainer from "components/PageContainer/PageContainer";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { database } from "utils/firebaseConfig";
 require("./PresentesDisponiveis.less");
-import { collection, onSnapshot } from "firebase/firestore";
+import { onSnapshot } from "firebase/firestore";
+import itensColletion from "utils/network/itensColletion";
 
 const { Step } = Steps;
 
@@ -24,9 +24,8 @@ const PresentesDisponiveis: React.FC<Props> = () => {
     [] as Models.Item[]
   );
   const [current, setCurrent] = React.useState(0);
-  const dbInstance = collection(database, "itens");
 
-  onSnapshot(dbInstance, (snapshot) => {
+  onSnapshot(itensColletion, (snapshot) => {
     let itens = snapshot.docs.map((doc) => doc.data());
     setOpcoesLista(itens as Models.Item[]);
   });
@@ -40,6 +39,7 @@ const PresentesDisponiveis: React.FC<Props> = () => {
           setPresente({ ...presente, presentes });
         },
         selectedPresentes: presente.presentes,
+        nome: nome as string,
       }),
     },
     {
