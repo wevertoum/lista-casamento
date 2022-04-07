@@ -37,11 +37,12 @@ const ListagemPresentes: React.FC<Props> = ({
 
   const changeStatus = (
     idItem: string,
-    status?: boolean,
+    qtd: number,
+    status: boolean,
     reservadoPor?: string
   ) => {
     const collectionById = doc(database, "itens", idItem);
-    if (status) {
+    if (status && qtd === 1) {
       updateDoc(collectionById, {
         status: "reservado",
         reservadoPor,
@@ -73,7 +74,7 @@ const ListagemPresentes: React.FC<Props> = ({
                 item.status === "reservado"
               }
               onChange={(e) => {
-                changeStatus(item.id, e.target.checked, nome);
+                changeStatus(item.id, item.qtd, e.target.checked, nome);
                 if (e.target.checked) {
                   onChange([...(selectedPresentes || []), item]);
                 } else {

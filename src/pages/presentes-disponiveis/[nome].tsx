@@ -6,9 +6,9 @@ import ListagemPresentes from "components/ListagemPresentes";
 import MaterialIcon from "components/MaterialIcon";
 import PageContainer from "components/PageContainer/PageContainer";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 require("./PresentesDisponiveis.less");
-import { onSnapshot } from "firebase/firestore";
+import { onSnapshot, query } from "firebase/firestore";
 import itensColletion from "utils/network/itensColletion";
 
 const { Step } = Steps;
@@ -20,21 +20,43 @@ const PresentesDisponiveis: React.FC<Props> = () => {
   const [presente, setPresente] = useState<Models.Presente>(
     {} as Models.Presente
   );
-  const [opcoesLista, setOpcoesLista] = useState<Models.Item[]>(
-    [] as Models.Item[]
-  );
+
   const [current, setCurrent] = React.useState(0);
 
-  onSnapshot(itensColletion, (snapshot) => {
-    let itens = snapshot.docs.map((doc) => doc.data());
-    setOpcoesLista(itens as Models.Item[]);
-  });
+  const [events, setEvents] = useState<Models.Item[]>([]);
+
+  const subcribeEvents = (
+    setEvents: React.Dispatch<React.SetStateAction<Models.Item[]>>
+  ) => {
+    console.log("subscribing...");
+    const eventsCollection = itensColletion;
+    const q = query(eventsCollection);
+    const unsubscribe = onSnapshot(q, (querySnapshot: any) => {
+      console.log("fetching update...");
+      const events: Models.Item[] = [];
+      querySnapshot.forEach((doc: any) => {
+        const data = doc.data();
+        events.push({
+          ...data,
+        });
+      });
+      setEvents(events);
+    });
+    return () => {
+      console.log("unsubscribing...");
+      unsubscribe();
+    };
+  };
+
+  useEffect(() => {
+    return subcribeEvents(setEvents);
+  }, []);
 
   const steps = [
     {
       title: "🧐",
       content: ListagemPresentes({
-        opcoesLista,
+        opcoesLista: events as Models.Item[],
         onChange: (presentes) => {
           setPresente({ ...presente, presentes });
         },
@@ -71,10 +93,19 @@ const PresentesDisponiveis: React.FC<Props> = () => {
     setCurrent(current - 1);
   };
 
+  // const addDataToFirebase = (itens: Models.Item[]) => {
+  //   itens.forEach((item) => {
+  //     addDoc(itensColletion, item).then((ref) => {
+  //       updateDoc(ref, { id: ref.id });
+  //     });
+  //   });
+  // };
+
   return (
     <PageContainer pageTitle={"Presentes disponíveis"}>
       <div className="presentes-disponiveis">
         <div className="title-header">
+          {/* <Button onClick={() => addDataToFirebase(dataPresentes)}>aaa</Button> */}
           <Typography.Title level={2}>
             {nome}, escolha seus presentes 🎁
           </Typography.Title>
@@ -119,10 +150,6 @@ const PresentesDisponiveis: React.FC<Props> = () => {
                 icon={<MaterialIcon path={mdiCheckAll} />}
                 type="primary"
                 onClick={() => {
-                  console.log({
-                    ...presente,
-                    nome: nome as string,
-                  });
                   message.success("Salvando seu presente!");
                 }}
               >
