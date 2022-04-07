@@ -17,7 +17,7 @@ const ItemPresente: React.FC<Props> = ({
 }) => {
   return (
     <div
-      className={`item-presente ${selected ? "selected" : ""} ${
+      className={`item-lista ${selected ? "selected" : ""} ${
         disabled ? "disabled" : ""
       }`}
     >
