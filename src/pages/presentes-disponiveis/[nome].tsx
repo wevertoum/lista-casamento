@@ -1,14 +1,15 @@
 import { mdiArrowLeftCircle, mdiArrowRightCircle, mdiCheckAll } from "@mdi/js";
 import { Typography, Steps, Button, message } from "antd";
 import ConfirmFeedback from "components/ConfirmFeedback";
-import InfosDoPedido from "components/InfosDoPedido";
+import InfosDoPresente from "components/InfosDoPresente";
 import ListagemPresentes from "components/ListagemPresentes";
 import MaterialIcon from "components/MaterialIcon";
 import PageContainer from "components/PageContainer/PageContainer";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import opcoesLista from "utils/opcoesLista";
+import { database } from "utils/firebaseConfig";
 require("./PresentesDisponiveis.less");
+import { collection, onSnapshot } from "firebase/firestore";
 
 const { Step } = Steps;
 
@@ -16,8 +17,19 @@ interface Props {}
 const PresentesDisponiveis: React.FC<Props> = () => {
   const router = useRouter();
   const { nome } = router.query;
-  const [pedido, setPedido] = useState<Models.Presente>({} as Models.Presente);
+  const [presente, setPresente] = useState<Models.Presente>(
+    {} as Models.Presente
+  );
+  const [opcoesLista, setOpcoesLista] = useState<Models.Item[]>(
+    [] as Models.Item[]
+  );
   const [current, setCurrent] = React.useState(0);
+  const dbInstance = collection(database, "itens");
+
+  onSnapshot(dbInstance, (snapshot) => {
+    let itens = snapshot.docs.map((doc) => doc.data());
+    setOpcoesLista(itens as Models.Item[]);
+  });
 
   const steps = [
     {
@@ -25,27 +37,27 @@ const PresentesDisponiveis: React.FC<Props> = () => {
       content: ListagemPresentes({
         opcoesLista,
         onChange: (presentes) => {
-          setPedido({ ...pedido, presentes });
+          setPresente({ ...presente, presentes });
         },
-        selectedPresentes: pedido.presentes,
+        selectedPresentes: presente.presentes,
       }),
     },
     {
       title: "📋",
-      content: InfosDoPedido({
-        pedido,
+      content: InfosDoPresente({
+        presente,
         onSelectTipoEntrega: (tipoEntrega) => {
-          setPedido({ ...pedido, tipoEntrega });
+          setPresente({ ...presente, tipoEntrega });
         },
         onWriteMessage: (mensagem) => {
-          setPedido({ ...pedido, mensagem });
+          setPresente({ ...presente, mensagem });
         },
       }),
     },
     {
       title: "✅",
       content: ConfirmFeedback({
-        pedido,
+        presente,
         nome: nome as string,
       }),
     },
@@ -108,10 +120,10 @@ const PresentesDisponiveis: React.FC<Props> = () => {
                 type="primary"
                 onClick={() => {
                   console.log({
-                    ...pedido,
+                    ...presente,
                     nome: nome as string,
                   });
-                  message.success("Salvando seus presentes!");
+                  message.success("Salvando seu presente!");
                 }}
               >
                 Finalizar

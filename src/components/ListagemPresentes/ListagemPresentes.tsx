@@ -34,22 +34,22 @@ const ListagemPresentes: React.FC<Props> = ({
   return (
     <div className="list-content">
       <Row style={{ marginLeft: 0, marginRight: 0 }} gutter={[16, 16]}>
-        {opcoesLista.map((presente, i) => (
+        {opcoesLista.map((item, i) => (
           <Col
             style={{ display: "flex", justifyContent: "center" }}
             span={span}
             key={i}
           >
             <Checkbox
-              disabled={presente.status === "reservado"}
-              key={presente.id}
-              checked={selectedPresentes?.some((p) => p.id === presente.id)}
+              disabled={item.status === "reservado"}
+              key={item.id}
+              checked={selectedPresentes?.some((p) => p.id === item.id)}
               onChange={(e) => {
                 if (e.target.checked) {
-                  onChange([...(selectedPresentes || []), presente]);
+                  onChange([...(selectedPresentes || []), item]);
                 } else {
                   onChange(
-                    selectedPresentes?.filter((p) => p.id !== presente.id)
+                    selectedPresentes?.filter((p) => p.id !== item.id)
                   );
                 }
               }}
@@ -58,15 +58,15 @@ const ListagemPresentes: React.FC<Props> = ({
                 color="#cecece"
                 text="Reservado"
                 style={{
-                  display: presente.status === "reservado" ? "block" : "none",
+                  display: item.status === "reservado" ? "block" : "none",
                 }}
               >
                 <ItemPresente
-                  presente={presente}
+                  item={item}
                   selected={selectedPresentes?.some(
-                    (p) => p.id === presente.id
+                    (p) => p.id === item.id
                   )}
-                  disabled={presente.status === "reservado"}
+                  disabled={item.status === "reservado"}
                 />
               </Badge.Ribbon>
             </Checkbox>

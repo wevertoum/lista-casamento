@@ -4,19 +4,19 @@ import tipoEntregaLabel from "utils/tipoEntregaLabel";
 require("./ConfirmFeedback.less");
 
 interface Props {
-  pedido: Models.Presente;
+  presente: Models.Presente;
   nome: string;
 }
-const ConfirmFeedback: React.FC<Props> = ({ pedido, nome }) => {
+const ConfirmFeedback: React.FC<Props> = ({ presente, nome }) => {
   return (
     <>
       <Typography.Title level={3}>{nome}</Typography.Title>
       <Typography.Text>
-        Você escolheu {tipoEntregaLabel[pedido.tipoEntrega]}
+        Você escolheu {tipoEntregaLabel[presente.tipoEntrega]}
       </Typography.Text>
       <div className="recomendacoes">
         <p>
-          {pedido.tipoEntrega === "enviar_domicilio"
+          {presente.tipoEntrega === "enviar_domicilio"
             ? "Rua 404, 100, condomínio recanto praças 2, casa 46, negrao de lima 74650360"
             : "Te vejo no dia do casamento!"}
         </p>

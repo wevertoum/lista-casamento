@@ -2,10 +2,10 @@
 
 namespace Models {
   interface Item {
+    status: "disponivel" | "reservado" | "indisponivel";
+    id: string;
     nome: string;
     url?: string;
-    id: number;
     qtd: number;
-    status: "disponivel" | "reservado" | "indisponivel";
   }
 }

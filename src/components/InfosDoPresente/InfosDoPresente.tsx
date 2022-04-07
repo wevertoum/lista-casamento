@@ -3,17 +3,17 @@ import ItemPresente from "components/ItemPresente";
 import useWindowSize from "hooks/useWindowSize";
 import React, { useMemo, useState } from "react";
 import { debounce } from "lodash";
-require("./InfosDoPedido.less");
+require("./InfosDoPresente.less");
 
 interface Props {
   onSelectTipoEntrega: (tipoEntrega: Models.TipoEntrega) => void;
   onWriteMessage: (message: string) => void;
-  pedido: Models.Presente;
+  presente: Models.Presente;
 }
-const InfosDoPedido: React.FC<Props> = ({
+const InfosDoPresente: React.FC<Props> = ({
   onSelectTipoEntrega,
   onWriteMessage,
-  pedido,
+  presente,
 }) => {
   const [width] = useWindowSize();
 
@@ -77,13 +77,13 @@ const InfosDoPedido: React.FC<Props> = ({
           style={{ marginLeft: 0, marginRight: 0, width: "100%" }}
           gutter={[16, 16]}
         >
-          {(pedido.presentes || []).map((presente, i) => (
+          {(presente.presentes || []).map((item, i) => (
             <Col
               style={{ display: "flex", justifyContent: "center" }}
               span={span}
               key={i}
             >
-              <ItemPresente presente={presente} />
+              <ItemPresente item={item} />
             </Col>
           ))}
         </Row>
@@ -99,7 +99,7 @@ const InfosDoPedido: React.FC<Props> = ({
           onSelectTipoEntrega(e.target.value);
           setTipoEntrega(e.target.value);
         }}
-        value={pedido.tipoEntrega}
+        value={presente.tipoEntrega}
       >
         <Radio value={"levar_no_dia"}>Levar no dia</Radio>
         <Radio value={"enviar_domicilio"}>Entregar Domicílio</Radio>
@@ -129,4 +129,4 @@ const InfosDoPedido: React.FC<Props> = ({
   );
 };
 
-export default InfosDoPedido;
+export default InfosDoPresente;
