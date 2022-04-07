@@ -5,9 +5,9 @@ import React, { useMemo } from "react";
 require("./ListagemPresentes.less");
 
 interface Props {
-  opcoesLista: Models.Presente[];
-  onChange: (presentes: Models.Presente[]) => void;
-  selectedPresentes: Models.Presente[];
+  opcoesLista: Models.Item[];
+  onChange: (presentes: Models.Item[]) => void;
+  selectedPresentes: Models.Item[];
 }
 const ListagemPresentes: React.FC<Props> = ({
   opcoesLista,

@@ -16,8 +16,8 @@ interface Props {}
 const PresentesDisponiveis: React.FC<Props> = () => {
   const router = useRouter();
   const { nome } = router.query;
-
-  const [pedido, setPedido] = useState<Models.Pedido>({} as Models.Pedido);
+  const [pedido, setPedido] = useState<Models.Presente>({} as Models.Presente);
+  const [current, setCurrent] = React.useState(0);
 
   const steps = [
     {
@@ -50,8 +50,6 @@ const PresentesDisponiveis: React.FC<Props> = () => {
       }),
     },
   ];
-
-  const [current, setCurrent] = React.useState(0);
 
   const next = () => {
     setCurrent(current + 1);

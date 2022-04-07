@@ -101,6 +101,6 @@ const opcoesLista = [
     id: 2805520310206464,
     status: "reservado"
   },
-] as Models.Presente[];
+] as Models.Item[];
 
 export default opcoesLista;

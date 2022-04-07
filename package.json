@@ -18,6 +18,7 @@
     "antd-mask-input": "^0.1.15",
     "babel-jest": "^27.0.6",
     "babel-plugin-import": "^1.13.3",
+    "firebase": "^9.6.10",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.0.6",
     "jest-transform-css": "^2.1.0",

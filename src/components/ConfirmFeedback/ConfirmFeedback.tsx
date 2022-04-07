@@ -4,7 +4,7 @@ import tipoEntregaLabel from "utils/tipoEntregaLabel";
 require("./ConfirmFeedback.less");
 
 interface Props {
-  pedido: Models.Pedido;
+  pedido: Models.Presente;
   nome: string;
 }
 const ConfirmFeedback: React.FC<Props> = ({ pedido, nome }) => {

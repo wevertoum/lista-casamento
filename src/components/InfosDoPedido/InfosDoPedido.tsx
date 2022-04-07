@@ -8,7 +8,7 @@ require("./InfosDoPedido.less");
 interface Props {
   onSelectTipoEntrega: (tipoEntrega: Models.TipoEntrega) => void;
   onWriteMessage: (message: string) => void;
-  pedido: Models.Pedido;
+  pedido: Models.Presente;
 }
 const InfosDoPedido: React.FC<Props> = ({
   onSelectTipoEntrega,

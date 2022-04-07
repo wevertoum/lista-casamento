@@ -8,7 +8,7 @@ require("./ItemPresente.less");
 interface Props {
   selected?: boolean;
   disabled?: boolean;
-  presente: Models.Presente;
+  presente: Models.Item;
 }
 const ItemPresente: React.FC<Props> = ({
   selected = false,
