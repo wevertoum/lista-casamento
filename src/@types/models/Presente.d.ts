@@ -5,6 +5,7 @@ namespace Models {
     presentes: Models.Item[];
     mensagem: string;
     urlFoto: string;
+    nome: string;
     tipoEntrega: Models.TipoEntrega;
   }
 

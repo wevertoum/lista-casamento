@@ -1,15 +1,25 @@
 import { mdiArrowLeftCircle, mdiArrowRightCircle, mdiCheckAll } from "@mdi/js";
-import { Typography, Steps, Button, message } from "antd";
+import { Typography, Steps, Button, message, Modal } from "antd";
 import ConfirmFeedback from "components/ConfirmFeedback";
 import InfosDoPresente from "components/InfosDoPresente";
 import ListagemPresentes from "components/ListagemPresentes";
 import MaterialIcon from "components/MaterialIcon";
 import PageContainer from "components/PageContainer/PageContainer";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 require("./PresentesDisponiveis.less");
-import { onSnapshot, query } from "firebase/firestore";
+import {
+  addDoc,
+  doc,
+  getDoc,
+  onSnapshot,
+  orderBy,
+  query,
+  updateDoc,
+} from "firebase/firestore";
 import itensColletion from "utils/network/itensColletion";
+import presentesCollection from "utils/network/presentesCollection";
+import { database } from "utils/firebaseConfig";
 
 const { Step } = Steps;
 
@@ -27,11 +37,9 @@ const PresentesDisponiveis: React.FC<Props> = () => {
   const subcribeEvents = (
     setEvents: React.Dispatch<React.SetStateAction<Models.Item[]>>
   ) => {
-    console.log("subscribing...");
     const eventsCollection = itensColletion;
-    const q = query(eventsCollection);
+    const q = query(eventsCollection, orderBy("nome"));
     const unsubscribe = onSnapshot(q, (querySnapshot: any) => {
-      console.log("fetching update...");
       const events: Models.Item[] = [];
       querySnapshot.forEach((doc: any) => {
         const data = doc.data();
@@ -39,10 +47,9 @@ const PresentesDisponiveis: React.FC<Props> = () => {
           ...data,
         });
       });
-      setEvents(events);
+      setEvents(events.filter((item) => item.status !== "indisponivel"));
     });
     return () => {
-      console.log("unsubscribing...");
       unsubscribe();
     };
   };
@@ -103,11 +110,50 @@ const PresentesDisponiveis: React.FC<Props> = () => {
   //   });
   // };
 
+  const postPresenteFirebase = useCallback(
+    (presente: Models.Presente) => {
+      addDoc(presentesCollection, presente).then((ref) => {
+        updateDoc(ref, { id: ref.id });
+        message.success("Presente enviado!!");
+        Modal.success({
+          title: "Presente enviado",
+          content: "Obrigado por enviar o presente",
+          okText: "Acessar feed",
+          onOk: () => {
+            router.push("/feed");
+          },
+          cancelText: "Enviar outro presente",
+          onCancel: () => {
+            router.reload();
+          },
+          closable: false,
+        });
+      });
+
+      presente.presentes.forEach(async (item) => {
+        const itemRef = doc(database, "itens", item.id);
+        const docSnap = await getDoc(itemRef);
+        const itemObj = docSnap.data() as Models.Item;
+        if (itemObj.qtd === 1) {
+          await updateDoc(itemRef, { qtd: 0, status: "indisponivel" });
+        } else {
+          await updateDoc(itemRef, {
+            qtd: itemObj.qtd - 1,
+            status: "disponivel",
+          });
+        }
+      });
+    },
+    [router]
+  );
+
   return (
     <PageContainer pageTitle={"Presentes disponíveis"}>
       <div className="presentes-disponiveis">
         <div className="title-header">
-          {/* <Button onClick={() => addDataToFirebase(dataPresentes)}>aaa</Button> */}
+          {/* <Button onClick={() => addDataToFirebase(dataPresentes)}>
+            upload data
+          </Button> */}
           <Typography.Title level={2}>
             {nome}, escolha seus presentes 🎁
           </Typography.Title>
@@ -136,7 +182,10 @@ const PresentesDisponiveis: React.FC<Props> = () => {
             {current < steps.length - 1 && (
               <Button
                 shape="round"
-                disabled={current === steps.length - 1}
+                disabled={
+                  current === steps.length - 1 ||
+                  (current === 1 && !presente.presentes)
+                }
                 icon={<MaterialIcon path={mdiArrowRightCircle} />}
                 type="primary"
                 onClick={() => next()}
@@ -152,7 +201,10 @@ const PresentesDisponiveis: React.FC<Props> = () => {
                 icon={<MaterialIcon path={mdiCheckAll} />}
                 type="primary"
                 onClick={() => {
-                  message.success("Salvando seu presente!");
+                  postPresenteFirebase({
+                    ...presente,
+                    nome: nome as string,
+                  });
                 }}
               >
                 Finalizar

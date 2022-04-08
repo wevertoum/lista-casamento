@@ -54,6 +54,7 @@ const InfosDoPresente: React.FC<Props> = ({
 
   const [progress, setProgress] = useState(0);
   const [urlImage, setUrlImage] = useState<string>();
+  const [mensagem, setMensagem] = useState(presente.mensagem || "");
 
   const handleFireBaseUpload = (e: any) => {
     const imageForReq = e.file;
@@ -198,9 +199,13 @@ const InfosDoPresente: React.FC<Props> = ({
             </div>
             <div className="mensagem-feed">
               <Input.TextArea
+                value={mensagem}
                 rows={3}
                 placeholder="Escreva uma mensagem para o presenteado"
-                onChange={(e) => onMessageThrottled(e.target.value)}
+                onChange={(e) => {
+                  onMessageThrottled(e.target.value);
+                  setMensagem(e.target.value);
+                }}
               />
             </div>
           </div>
