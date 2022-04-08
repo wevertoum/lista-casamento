@@ -9,7 +9,7 @@ interface Props {
 }
 const ConfirmFeedback: React.FC<Props> = ({ presente, nome }) => {
   return (
-    <>
+    <div className="confirmacao">
       <Typography.Title level={3}>{nome}</Typography.Title>
       <Typography.Text>
         Você escolheu {tipoEntregaLabel[presente.tipoEntrega]}
@@ -25,7 +25,7 @@ const ConfirmFeedback: React.FC<Props> = ({ presente, nome }) => {
       <Typography.Title level={3}>
         Finalize abaixo o registro e aguarde a confirmação do casal
       </Typography.Title>
-    </>
+    </div>
   );
 };
 

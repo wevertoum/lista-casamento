@@ -17,14 +17,13 @@ interface Props {}
 const PresentesDisponiveis: React.FC<Props> = () => {
   const router = useRouter();
   const { nome } = router.query;
-  const [presente, setPresente] = useState<Models.Presente>(
-    {} as Models.Presente
-  );
 
   const [current, setCurrent] = React.useState(0);
 
-  const [events, setEvents] = useState<Models.Item[]>([]);
-
+  const [opcoesLista, setOpcoesLista] = useState<Models.Item[]>([]);
+  const [presente, setPresente] = useState<Models.Presente>(
+    {} as Models.Presente
+  );
   const subcribeEvents = (
     setEvents: React.Dispatch<React.SetStateAction<Models.Item[]>>
   ) => {
@@ -49,14 +48,14 @@ const PresentesDisponiveis: React.FC<Props> = () => {
   };
 
   useEffect(() => {
-    return subcribeEvents(setEvents);
+    return subcribeEvents(setOpcoesLista);
   }, []);
 
   const steps = [
     {
       title: "🧐",
       content: ListagemPresentes({
-        opcoesLista: events as Models.Item[],
+        opcoesLista,
         onChange: (presentes) => {
           setPresente({ ...presente, presentes });
         },
@@ -73,6 +72,9 @@ const PresentesDisponiveis: React.FC<Props> = () => {
         },
         onWriteMessage: (mensagem) => {
           setPresente({ ...presente, mensagem });
+        },
+        onUploadFoto: (urlFoto) => {
+          setPresente({ ...presente, urlFoto });
         },
       }),
     },

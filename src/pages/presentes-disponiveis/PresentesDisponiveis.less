@@ -13,6 +13,15 @@
   .progress {
     padding: 16px;
     margin: 0 16px;
+    .ant-steps {
+      .ant-steps-item:last-child {
+        .ant-steps-item-container {
+          .ant-steps-item-content {
+            margin-right: 4px;
+          }
+        }
+      }
+    }
   }
 
   .presentes-content {
@@ -26,6 +35,8 @@
     .steps-content {
       margin-top: 16px;
       height: fit-content;
+      max-height: fit-content;
+      min-height: auto;
       width: 100%;
       padding: 16px;
       text-align: center;

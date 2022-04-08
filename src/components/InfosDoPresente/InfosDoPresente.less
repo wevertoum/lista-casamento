@@ -1,3 +1,10 @@
+.lista-vazia {
+  height: calc(100vh - 360px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 .infos-content {
   width: 100%;
   margin: 16px 0;
@@ -20,5 +27,26 @@
 }
 
 .infos-mensagem {
-  margin-bottom: 20px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
+  .upload-foto {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex: 0.15;
+    margin: 24px 0;
+    .ant-progress-inner {
+      width: 40%;
+    }
+  }
+  .mensagem-feed {
+    display: flex;
+    flex: 0.85;
+    // padding: 20px;
+    background-color: aqua;
+  }
 }

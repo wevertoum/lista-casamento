@@ -4,6 +4,7 @@ namespace Models {
   interface Presente {
     presentes: Models.Item[];
     mensagem: string;
+    urlFoto: string;
     tipoEntrega: Models.TipoEntrega;
   }
 
