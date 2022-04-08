@@ -54,7 +54,7 @@ const Feed: React.FC<Props> = () => {
   }, [width]);
 
   return (
-    <PageContainer pageTitle={"Feed de noticias"}>
+    <PageContainer pageTitle={"Feed de noticias"} showCredits>
       <div className="presentes-container">
         <div className="title-header">
           <Typography.Title level={4}>

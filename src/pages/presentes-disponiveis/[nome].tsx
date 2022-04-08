@@ -117,9 +117,9 @@ const PresentesDisponiveis: React.FC<Props> = () => {
         updateDoc(ref, { id: ref.id });
         message.success("Presente enviado!!");
         Modal.success({
-          title: "Presente enviado",
-          content: "Obrigado por enviar o presente",
-          okText: "Acessar feed",
+          title: "Presente enviado ✅",
+          content: "Obrigado por fazer parte disso 💝",
+          okText: "Feed de notícias 🎉",
           onOk: () => {
             router.push("/feed");
           },
@@ -128,6 +128,8 @@ const PresentesDisponiveis: React.FC<Props> = () => {
             router.reload();
           },
           closable: false,
+          centered: true,
+          okCancel: true,
         });
       });
 

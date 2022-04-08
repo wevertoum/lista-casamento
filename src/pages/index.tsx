@@ -3,7 +3,7 @@ import { Button, Form, Input, Typography } from "antd";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import defaultFormRules from "utils/defaultFormRules";
-import { mdiGift } from "@mdi/js";
+import { mdiGift, mdiWeb } from "@mdi/js";
 import MaterialIcon from "components/MaterialIcon";
 import PageContainer from "components/PageContainer/PageContainer";
 require("./Home.less");
@@ -42,6 +42,17 @@ const Home: NextPage = () => {
               htmlType="submit"
             >
               Ver lista de presentes
+            </Button>
+            <Button
+              shape="round"
+              icon={<MaterialIcon path={mdiWeb} />}
+              type="dashed"
+              onClick={() => {
+                router.push(`/feed/`);
+              }}
+              style={{ marginLeft: "1rem" }}
+            >
+              Feed 🎉
             </Button>
           </Form>
         </div>
