@@ -3,6 +3,7 @@
 namespace Models {
   interface Presente {
     presentes: Models.Item[];
+    timestamp: any;
     mensagem: string;
     urlFoto: string;
     nome: string;

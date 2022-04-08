@@ -15,6 +15,7 @@ import {
   onSnapshot,
   orderBy,
   query,
+  serverTimestamp,
   updateDoc,
 } from "firebase/firestore";
 import itensColletion from "utils/network/itensColletion";
@@ -34,7 +35,7 @@ const PresentesDisponiveis: React.FC<Props> = () => {
   const [presente, setPresente] = useState<Models.Presente>(
     {} as Models.Presente
   );
-  const subcribeEvents = (
+  const subcribeOpcoes = (
     setEvents: React.Dispatch<React.SetStateAction<Models.Item[]>>
   ) => {
     const eventsCollection = itensColletion;
@@ -55,7 +56,7 @@ const PresentesDisponiveis: React.FC<Props> = () => {
   };
 
   useEffect(() => {
-    return subcribeEvents(setOpcoesLista);
+    return subcribeOpcoes(setOpcoesLista);
   }, []);
 
   const steps = [
@@ -204,6 +205,7 @@ const PresentesDisponiveis: React.FC<Props> = () => {
                   postPresenteFirebase({
                     ...presente,
                     nome: nome as string,
+                    timestamp: serverTimestamp(),
                   });
                 }}
               >
