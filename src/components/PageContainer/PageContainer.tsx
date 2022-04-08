@@ -23,7 +23,7 @@ const PageContainer: React.FC<Props> = ({
       {showCredits && (
         <footer className="credits">
           <a target="_blank" href="https://weverton.me" rel="noreferrer">
-            dev by wev
+            👨🏾‍💻  by wev
           </a>
         </footer>
       )}
