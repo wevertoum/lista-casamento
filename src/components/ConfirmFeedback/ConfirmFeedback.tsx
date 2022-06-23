@@ -1,31 +1,39 @@
 import { Divider, Typography } from "antd";
+import ListPresentesNome from "components/ListPresentesNome";
 import React from "react";
 import tipoEntregaLabel from "utils/tipoEntregaLabel";
 require("./ConfirmFeedback.less");
 
 interface Props {
-  pedido: Models.Pedido;
+  presente: Models.Presente;
   nome: string;
 }
-const ConfirmFeedback: React.FC<Props> = ({ pedido, nome }) => {
+const ConfirmFeedback: React.FC<Props> = ({ presente, nome }) => {
   return (
-    <>
+    <div className="confirmacao">
       <Typography.Title level={3}>{nome}</Typography.Title>
-      <Typography.Text>
-        Você escolheu {tipoEntregaLabel[pedido.tipoEntrega]}
-      </Typography.Text>
+      {presente.tipoEntrega && (
+        <Typography.Text>
+          Você escolheu {tipoEntregaLabel[presente.tipoEntrega]}
+        </Typography.Text>
+      )}
       <div className="recomendacoes">
         <p>
-          {pedido.tipoEntrega === "enviar_domicilio"
-            ? "Rua 404, 100, condomínio recanto praças 2, casa 46, negrao de lima 74650360"
-            : "Te vejo no dia do casamento!"}
+          {presente.tipoEntrega === "enviar_domicilio"
+            ? "Rua 404, nº 101. Condomínio Recanto Praças 2, Casa 46, Negrão de Lima. Goiânia, Goiás. 74.650-360"
+            : "Te vemos dia 13 de agosto no chá de panela!"}
         </p>
       </div>
+      <Divider />
+      <Typography.Text>
+        Seus presentes, tire um print dessa tela 😉📲
+      </Typography.Text>
+      <ListPresentesNome itens={presente.presentes} />
       <Divider />
       <Typography.Title level={3}>
         Finalize abaixo o registro e aguarde a confirmação do casal
       </Typography.Title>
-    </>
+    </div>
   );
 };
 

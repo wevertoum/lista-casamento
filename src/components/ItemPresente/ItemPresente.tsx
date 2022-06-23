@@ -8,16 +8,16 @@ require("./ItemPresente.less");
 interface Props {
   selected?: boolean;
   disabled?: boolean;
-  presente: Models.Presente;
+  item: Models.Item;
 }
 const ItemPresente: React.FC<Props> = ({
   selected = false,
   disabled,
-  presente,
+  item,
 }) => {
   return (
     <div
-      className={`item-presente ${selected ? "selected" : ""} ${
+      className={`item-lista ${selected ? "selected" : ""} ${
         disabled ? "disabled" : ""
       }`}
     >
@@ -26,23 +26,25 @@ const ItemPresente: React.FC<Props> = ({
       </div>
 
       <div className="descricao-container">
-        <small>{presente.nome}</small>
+        <small>{item?.nome}</small>
 
-        <Button
-          disabled={presente.status === "reservado"}
-          icon={
-            <MaterialIcon path={mdiOpenInNew} size={0.7} color="#314528af" />
-          }
-          style={{
-            color: "#314528af",
-          }}
-          shape="round"
-          type="text"
-          size="small"
-          onClick={() => openLinkExterno(presente.url)}
-        >
-          Inspiração
-        </Button>
+        {item && item.url && (
+          <Button
+            disabled={item.status === "reservado"}
+            icon={
+              <MaterialIcon path={mdiOpenInNew} size={0.7} color="#314528af" />
+            }
+            style={{
+              color: "#314528af",
+            }}
+            shape="round"
+            type="text"
+            size="small"
+            onClick={() => openLinkExterno(item.url!)}
+          >
+            Inspiração
+          </Button>
+        )}
       </div>
     </div>
   );

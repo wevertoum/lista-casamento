@@ -2,17 +2,21 @@ import { Badge, Checkbox, Col, Row } from "antd";
 import ItemPresente from "components/ItemPresente";
 import useWindowSize from "hooks/useWindowSize";
 import React, { useMemo } from "react";
+import { doc, updateDoc } from "firebase/firestore";
+import { database } from "utils/firebaseConfig";
 require("./ListagemPresentes.less");
 
 interface Props {
-  opcoesLista: Models.Presente[];
-  onChange: (presentes: Models.Presente[]) => void;
-  selectedPresentes: Models.Presente[];
+  opcoesLista: Models.Item[];
+  onChange: (presentes: Models.Item[]) => void;
+  selectedPresentes: Models.Item[];
+  nome: string;
 }
 const ListagemPresentes: React.FC<Props> = ({
   opcoesLista,
   onChange,
   selectedPresentes = [],
+  nome,
 }) => {
   const [width] = useWindowSize();
 
@@ -31,26 +35,45 @@ const ListagemPresentes: React.FC<Props> = ({
     }
   }, [width]);
 
+  const changeStatus = (idItem: string, qtd: number, status: boolean) => {
+    const collectionById = doc(database, "itens", idItem);
+    if (status && qtd === 1) {
+      updateDoc(collectionById, {
+        status: "reservado",
+        reservadoPor: nome,
+      });
+    } else {
+      updateDoc(collectionById, {
+        status: "disponivel",
+        reservadoPor: null,
+      });
+    }
+  };
+
   return (
     <div className="list-content">
       <Row style={{ marginLeft: 0, marginRight: 0 }} gutter={[16, 16]}>
-        {opcoesLista.map((presente, i) => (
+        {opcoesLista.map((item, i) => (
           <Col
             style={{ display: "flex", justifyContent: "center" }}
             span={span}
             key={i}
           >
             <Checkbox
-              disabled={presente.status === "reservado"}
-              key={presente.id}
-              checked={selectedPresentes?.some((p) => p.id === presente.id)}
+              disabled={
+                item.status === "reservado" && item.reservadoPor !== nome
+              }
+              key={item.id}
+              checked={
+                selectedPresentes?.some((p) => p.id === item.id) ||
+                item.status === "reservado"
+              }
               onChange={(e) => {
+                changeStatus(item.id, item.qtd, e.target.checked);
                 if (e.target.checked) {
-                  onChange([...(selectedPresentes || []), presente]);
+                  onChange([...(selectedPresentes || []), item]);
                 } else {
-                  onChange(
-                    selectedPresentes?.filter((p) => p.id !== presente.id)
-                  );
+                  onChange(selectedPresentes?.filter((p) => p.id !== item.id));
                 }
               }}
             >
@@ -58,15 +81,18 @@ const ListagemPresentes: React.FC<Props> = ({
                 color="#cecece"
                 text="Reservado"
                 style={{
-                  display: presente.status === "reservado" ? "block" : "none",
+                  display:
+                    item.status === "reservado" && item.reservadoPor !== nome
+                      ? "block"
+                      : "none",
                 }}
               >
                 <ItemPresente
-                  presente={presente}
-                  selected={selectedPresentes?.some(
-                    (p) => p.id === presente.id
-                  )}
-                  disabled={presente.status === "reservado"}
+                  item={item}
+                  selected={selectedPresentes?.some((p) => p.id === item.id)}
+                  disabled={
+                    item.status === "reservado" && item.reservadoPor !== nome
+                  }
                 />
               </Badge.Ribbon>
             </Checkbox>

@@ -3,9 +3,8 @@ const withAntdLess = require("next-plugin-antd-less");
 module.exports = withAntdLess({
   lessVarsFilePath: "./src/styles/variables.less",
   lessVarsFilePathAppendToEndOfContent: true,
-  pwa: {
-    dest: "public",
-    disable: process.env.NODE_ENV === "development",
+  images: {
+    domains: ["firebasestorage.googleapis.com"],
   },
 
   webpack(config) {

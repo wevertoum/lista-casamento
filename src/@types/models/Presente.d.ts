@@ -2,9 +2,13 @@
 
 namespace Models {
   interface Presente {
+    presentes: Models.Item[];
+    timestamp: any;
+    mensagem: string;
+    urlFoto: string;
     nome: string;
-    url: string;
-    id: number;
-    status: "disponivel" | "reservado";
+    tipoEntrega: Models.TipoEntrega;
   }
+
+  type TipoEntrega = "levar_no_dia" | "enviar_domicilio";
 }
