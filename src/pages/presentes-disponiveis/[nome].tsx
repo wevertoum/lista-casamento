@@ -147,7 +147,7 @@ const PresentesDisponiveis: React.FC<Props> = () => {
         }
       });
     },
-    [router]
+    [nome, router]
   );
 
   return (
