@@ -25,12 +25,12 @@ const Home: NextPage = () => {
       <main className="main">
         <div className="form-contain">
           <Typography.Title className="form-title" level={1}>
-            Bem vindo 🥰🥳💍👰🏽‍♀️🤵🏾‍♂️
+            Feliz em te ver aqui! 🥳
           </Typography.Title>
           <Form onFinish={onFinish} layout="vertical" form={form}>
             <Form.Item
               name="nome"
-              label="Me diga seu nome 😊"
+              label="Comece com seu nome aqui 😊"
               rules={defaultFormRules}
             >
               <Input placeholder="Digite seu nome" />

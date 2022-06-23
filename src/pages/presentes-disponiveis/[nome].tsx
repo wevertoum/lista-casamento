@@ -118,12 +118,12 @@ const PresentesDisponiveis: React.FC<Props> = () => {
         message.success("Presente enviado!!");
         Modal.success({
           title: "Presente enviado ✅",
-          content: "Obrigado por fazer parte disso 💝",
-          okText: "Feed de notícias 🎉",
+          content: `${nome}, a parte mais importante desse momento é ter por perto pessoas que nós amamos e que caminham com a gente! Muito obrigada por abençoar a nossa casa, mas a sua amizade e as suas orações são o maior presente de todos, nos vemos! 💝`,
+          okText: "Feed 🎉",
           onOk: () => {
             router.push("/feed");
           },
-          cancelText: "Enviar outro presente",
+          cancelText: "Outro presente",
           onCancel: () => {
             router.reload();
           },
@@ -158,7 +158,7 @@ const PresentesDisponiveis: React.FC<Props> = () => {
             upload data
           </Button> */}
           <Typography.Title level={2}>
-            {nome}, escolha seus presentes 🎁
+            {nome}, agora é só escolher! 🎁
           </Typography.Title>
         </div>
 

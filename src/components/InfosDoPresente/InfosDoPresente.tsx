@@ -88,22 +88,23 @@ const InfosDoPresente: React.FC<Props> = ({
   const alertContent = useMemo(() => {
     if (tipoEntrega === "levar_no_dia") {
       return {
-        message: "Você escolheu entregar no dia",
-        description: "Nos vemos por la!",
+        message: "Você escolheu entregar no chá de panela",
+        description:
+          "nos vemos no dia 13 de agosto, estamos animados para celebrar esse momento com você!",
         type: "success",
         showIcon: true,
       };
     } else if (tipoEntrega === "enviar_domicilio") {
       return {
-        message: "Você escolheu enviar para domicílio",
+        message: "Você escolheu enviar pra gente",
         description: (
           <>
             <Typography.Title level={5}>
-              Fique atento ao endereço de entrega
+              Aqui estão os dados para entrega:
             </Typography.Title>
             <Typography.Paragraph>
-              Rua 404, 100, condomínio recanto praças 2, casa 46, negrao de lima
-              74650360
+              Ana Laura Costa Rodrigues, Rua 404, nº 101. Condomínio Recanto
+              Praças 2, Casa 46, Negrão de Lima. Goiânia, Goiás. 74.650-360
             </Typography.Paragraph>
           </>
         ),
@@ -119,7 +120,7 @@ const InfosDoPresente: React.FC<Props> = ({
         <>
           <div className="infos-description">
             <Typography.Title level={4}>
-              Presentes escolhidos 💐💝
+              Presentes escolhidos! Muito obrigado! 💝
             </Typography.Title>
             <Divider />
           </div>
@@ -142,7 +143,7 @@ const InfosDoPresente: React.FC<Props> = ({
           <Divider />
           <div className="infos-description-entrega">
             <Typography.Title level={4}>
-              Informações sobre entrega 📦
+              O que você prefere? 📦
             </Typography.Title>
           </div>
           <Radio.Group
@@ -152,20 +153,23 @@ const InfosDoPresente: React.FC<Props> = ({
             }}
             value={presente.tipoEntrega}
           >
-            <Radio value={"levar_no_dia"}>Levar no dia</Radio>
-            <Radio value={"enviar_domicilio"}>Entregar Domicílio</Radio>
+            <Radio value={"levar_no_dia"}>Levar no Chá de panela</Radio>
+            <Radio value={"enviar_domicilio"}>Mandar entregar para vocês</Radio>
           </Radio.Group>
-          {tipoEntrega && (
-            <Alert
-              message={alertContent?.message}
-              description={alertContent?.description}
-              type={alertContent?.type as any}
-              showIcon
-            />
-          )}
+          <div className="alert-container">
+            {tipoEntrega && (
+              <Alert
+                message={alertContent?.message}
+                description={alertContent?.description}
+                type={alertContent?.type as any}
+                showIcon
+              />
+            )}
+          </div>
+
           <Divider />
           <Typography.Title level={4}>
-            Agora a mensagem para o feed! 💅🏽
+            Antes de ir, deixe um recadinho pra gente registrado aqui!
           </Typography.Title>
           <div className="infos-mensagem">
             <div className="upload-foto">
@@ -201,7 +205,7 @@ const InfosDoPresente: React.FC<Props> = ({
               <Input.TextArea
                 value={mensagem}
                 rows={3}
-                placeholder="Escreva uma mensagem para o presenteado"
+                placeholder="Escreva uma mensagem legal"
                 onChange={(e) => {
                   onMessageThrottled(e.target.value);
                   setMensagem(e.target.value);
