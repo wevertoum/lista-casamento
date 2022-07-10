@@ -178,14 +178,12 @@ const InfosDoPresente: React.FC<Props> = ({
           </div>
         </>
       ) : (
-        <>
-          <Alert
-            message={"Dados para PIX"}
-            description={"chave pix: 046.858.191-01"}
-            type={"info"}
-            showIcon
-          />
-        </>
+        <Alert
+          message={"Dados para PIX"}
+          description={"chave pix: 046.858.191-01"}
+          type={"info"}
+          showIcon
+        />
       )}
 
       <Divider />
