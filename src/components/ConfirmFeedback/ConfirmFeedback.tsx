@@ -7,8 +7,9 @@ require("./ConfirmFeedback.less");
 interface Props {
   presente: Models.Presente;
   nome: string;
+  tipoPresente: Models.TipoPresente;
 }
-const ConfirmFeedback: React.FC<Props> = ({ presente, nome }) => {
+const ConfirmFeedback: React.FC<Props> = ({ presente, nome, tipoPresente }) => {
   return (
     <div className="confirmacao">
       <Typography.Title level={3}>{nome}</Typography.Title>
@@ -24,10 +25,15 @@ const ConfirmFeedback: React.FC<Props> = ({ presente, nome }) => {
             : "Te vemos dia 13 de agosto no chá de panela!"}
         </p>
       </div>
-      <Divider />
-      <Typography.Text>
-        Seus presentes, tire um print dessa tela 😉📲
-      </Typography.Text>
+
+      {tipoPresente === "presente" && (
+        <>
+          <Divider />
+          <Typography.Text>
+            Seus presentes, tire um print dessa tela 😉📲
+          </Typography.Text>
+        </>
+      )}
       <ListPresentesNome itens={presente.presentes} />
       <Divider />
       <Typography.Title level={3}>

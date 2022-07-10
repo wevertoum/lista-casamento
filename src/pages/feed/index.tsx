@@ -97,7 +97,10 @@ const Feed: React.FC<Props> = () => {
                     </div>
                   </div>
                   <Divider />
-                  <ListPresentesNome itens={presente.presentes} />
+                  <ListPresentesNome
+                    tipo={presente.tipo}
+                    itens={presente.presentes}
+                  />
                 </div>
               </Col>
             ))}

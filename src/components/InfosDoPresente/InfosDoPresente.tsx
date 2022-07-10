@@ -118,37 +118,39 @@ const InfosDoPresente: React.FC<Props> = ({
 
   return (
     <>
-      {(presente.presentes || []).length > 0 ? (
-        <>
-          <div className="infos-description">
-            <Typography.Title level={4}>
-              Presentes escolhidos! Muito obrigado! 💝
-            </Typography.Title>
-            <Divider />
-          </div>
-          <div className="infos-content">
-            {tipoPresente === "presente" ? (
-              <Row
-                style={{ marginLeft: 0, marginRight: 0, width: "100%" }}
-                gutter={[16, 16]}
+      <div className="infos-description">
+        <Typography.Title level={4}>
+          {tipoPresente === "presente" ? "Presentes escolhidos!" : ""} Muito
+          obrigado! 💝
+        </Typography.Title>
+        <Divider />
+      </div>
+      <div className="infos-content">
+        {tipoPresente === "presente" ? (
+          <Row
+            style={{ marginLeft: 0, marginRight: 0, width: "100%" }}
+            gutter={[16, 16]}
+          >
+            {(presente.presentes || []).map((item, i) => (
+              <Col
+                style={{ display: "flex", justifyContent: "center" }}
+                span={span}
+                key={i}
               >
-                {(presente.presentes || []).map((item, i) => (
-                  <Col
-                    style={{ display: "flex", justifyContent: "center" }}
-                    span={span}
-                    key={i}
-                  >
-                    <ItemPresente item={item} />
-                  </Col>
-                ))}
-              </Row>
-            ) : (
-              <Typography.Title level={3}>
-                Você escolher contribuir com pix
-              </Typography.Title>
-            )}
-          </div>
-          <Divider />
+                <ItemPresente item={item} />
+              </Col>
+            ))}
+          </Row>
+        ) : (
+          <Typography.Title level={3}>
+            Você escolher contribuir com pix
+          </Typography.Title>
+        )}
+      </div>
+      <Divider />
+      {tipoPresente === "presente" ? (
+        <>
+          {" "}
           <div className="infos-description-entrega">
             <Typography.Title level={4}>
               O que você prefere? 📦
@@ -174,67 +176,64 @@ const InfosDoPresente: React.FC<Props> = ({
               />
             )}
           </div>
-
-          <Divider />
-          <Typography.Title level={4}>
-            Antes de ir, deixe um recadinho pra gente registrado aqui!
-          </Typography.Title>
-          <div className="infos-mensagem">
-            <div className="upload-foto">
-              <Upload
-                accept="image/*"
-                customRequest={handleFireBaseUpload}
-                listType="picture-card"
-                showUploadList={false}
-              >
-                {urlImage ? (
-                  <Image src={urlImage} alt="avatar" width={200} height={200} />
-                ) : (
-                  <Image
-                    src={"/upload_photo.svg"}
-                    alt="avatar"
-                    width={200}
-                    height={200}
-                  />
-                )}
-              </Upload>
-              {progress > 0 && (
-                <Progress
-                  strokeColor={{
-                    "0%": "#624103",
-                    "100%": "#a87008",
-                  }}
-                  percent={progress}
-                />
-              )}
-              <Typography.Text strong>Sua fotinha!</Typography.Text>
-            </div>
-            <div className="mensagem-feed">
-              <Input.TextArea
-                value={mensagem}
-                rows={3}
-                placeholder="Escreva uma mensagem legal"
-                onChange={(e) => {
-                  onMessageThrottled(e.target.value);
-                  setMensagem(e.target.value);
-                }}
-              />
-            </div>
-          </div>
         </>
       ) : (
-        <div className="lista-vazia">
-          <Typography.Title level={4}>
-            Você ainda não selecionou nenhum presente!
-          </Typography.Title>
-          <Image
-            height={200}
-            width={200}
-            src={"/empty.svg"}
-            alt="Lista vazia"
+        <>
+          <Alert
+            message={"Dados para PIX"}
+            description={"chave pix: 031.831.012-03"}
+            type={"info"}
+            showIcon
+          />
+        </>
+      )}
+
+      <Divider />
+      <Typography.Title level={4}>
+        Antes de ir, deixe um recadinho pra gente registrado aqui!
+      </Typography.Title>
+      <div className="infos-mensagem">
+        <div className="upload-foto">
+          <Upload
+            accept="image/*"
+            customRequest={handleFireBaseUpload}
+            listType="picture-card"
+            showUploadList={false}
+          >
+            {urlImage ? (
+              <Image src={urlImage} alt="avatar" width={200} height={200} />
+            ) : (
+              <Image
+                src={"/upload_photo.svg"}
+                alt="avatar"
+                width={200}
+                height={200}
+              />
+            )}
+          </Upload>
+          {progress > 0 && (
+            <Progress
+              strokeColor={{
+                "0%": "#624103",
+                "100%": "#a87008",
+              }}
+              percent={progress}
+            />
+          )}
+          <Typography.Text strong>Sua fotinha!</Typography.Text>
+        </div>
+        <div className="mensagem-feed">
+          <Input.TextArea
+            value={mensagem}
+            rows={2}
+            placeholder="Escreva uma mensagem legal"
+            onChange={(e) => {
+              onMessageThrottled(e.target.value);
+              setMensagem(e.target.value);
+            }}
           />
         </div>
-      )}
+      </div>
     </>
   );
 };

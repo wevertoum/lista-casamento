@@ -31,7 +31,8 @@ const PresentesDisponiveis: React.FC<Props> = () => {
   const { nome } = router.query;
 
   const [current, setCurrent] = React.useState(0);
-  const [tipoPresente, setTipoPresente] = useState<Models.TipoPresente>("presente");
+  const [tipoPresente, setTipoPresente] =
+    useState<Models.TipoPresente>("presente");
   const [opcoesLista, setOpcoesLista] = useState<Models.Item[]>([]);
   const [presente, setPresente] = useState<Models.Presente>(
     {} as Models.Presente
@@ -60,7 +61,7 @@ const PresentesDisponiveis: React.FC<Props> = () => {
     return subcribeOpcoes(setOpcoesLista);
   }, []);
 
-  const steps = [
+  const stepsPresente = [
     {
       title: "😎",
       content: ChoiceTipoPresente({
@@ -98,13 +99,53 @@ const PresentesDisponiveis: React.FC<Props> = () => {
         },
         tipoPresente,
       }),
-      canAdvance: () => presente.tipoEntrega !== undefined,
+      canAdvance: () => true,
     },
     {
       title: "✅",
       content: ConfirmFeedback({
         presente,
         nome: nome as string,
+        tipoPresente,
+      }),
+      canAdvance: () => true,
+    },
+  ];
+
+  const stepsPix = [
+    {
+      title: "😎",
+      content: ChoiceTipoPresente({
+        onSelect: (tipoPresente: Models.TipoPresente) => {
+          setTipoPresente(tipoPresente);
+        },
+        tipoPresente,
+      }),
+      canAdvance: () => tipoPresente !== undefined,
+    },
+    {
+      title: "📋",
+      content: InfosDoPresente({
+        presente,
+        onSelectTipoEntrega: (tipoEntrega) => {
+          setPresente({ ...presente, tipoEntrega });
+        },
+        onWriteMessage: (mensagem) => {
+          setPresente({ ...presente, mensagem });
+        },
+        onUploadFoto: (urlFoto) => {
+          setPresente({ ...presente, urlFoto });
+        },
+        tipoPresente,
+      }),
+      canAdvance: () => true,
+    },
+    {
+      title: "✅",
+      content: ConfirmFeedback({
+        presente,
+        nome: nome as string,
+        tipoPresente,
       }),
       canAdvance: () => true,
     },
@@ -128,7 +169,13 @@ const PresentesDisponiveis: React.FC<Props> = () => {
 
   const postPresenteFirebase = useCallback(
     (presente: Models.Presente) => {
-      addDoc(presentesCollection, presente).then((ref) => {
+      const presentToSend = {
+        ...presente,
+        tipo: tipoPresente,
+        presentes: tipoPresente === "presente" ? presente.presentes : [],
+      } as Models.Presente;
+
+      addDoc(presentesCollection, presentToSend).then((ref) => {
         updateDoc(ref, { id: ref.id });
         message.success("Presente enviado!!");
         Modal.success({
@@ -148,22 +195,26 @@ const PresentesDisponiveis: React.FC<Props> = () => {
         });
       });
 
-      presente.presentes.forEach(async (item) => {
-        const itemRef = doc(database, "itens", item.id);
-        const docSnap = await getDoc(itemRef);
-        const itemObj = docSnap.data() as Models.Item;
-        if (itemObj.qtd === 1) {
-          await updateDoc(itemRef, { qtd: 0, status: "indisponivel" });
-        } else {
-          await updateDoc(itemRef, {
-            qtd: itemObj.qtd - 1,
-            status: "disponivel",
-          });
-        }
-      });
+      if (tipoPresente === "presente") {
+        presente.presentes.forEach(async (item) => {
+          const itemRef = doc(database, "itens", item.id);
+          const docSnap = await getDoc(itemRef);
+          const itemObj = docSnap.data() as Models.Item;
+          if (itemObj.qtd === 1) {
+            await updateDoc(itemRef, { qtd: 0, status: "indisponivel" });
+          } else {
+            await updateDoc(itemRef, {
+              qtd: itemObj.qtd - 1,
+              status: "disponivel",
+            });
+          }
+        });
+      }
     },
-    [nome, router]
+    [nome, router, tipoPresente]
   );
+
+  const stepTarget = tipoPresente === "pix" ? stepsPix : stepsPresente;
 
   return (
     <PageContainer pageTitle={"Presentes disponíveis"}>
@@ -173,20 +224,20 @@ const PresentesDisponiveis: React.FC<Props> = () => {
             upload data
           </Button> */}
           <Typography.Title level={2}>
-            {nome}, agora é só escolher! 🎁
+            {nome}, escolha seu presente! 🎁
           </Typography.Title>
         </div>
 
         <div className="progress">
           <Steps current={current}>
-            {steps.map((item) => (
+            {(tipoPresente === "pix" ? stepsPix : stepsPresente).map((item) => (
               <Step key={item.title} title={item.title} />
             ))}
           </Steps>
         </div>
 
         <div className="presentes-content">
-          <div className="steps-content">{steps[current].content}</div>
+          <div className="steps-content">{stepTarget[current].content}</div>
           <div className="steps-action">
             <Button
               shape="round"
@@ -197,11 +248,12 @@ const PresentesDisponiveis: React.FC<Props> = () => {
               Voltar
             </Button>
 
-            {current < steps.length - 1 && (
+            {current < stepTarget.length - 1 && (
               <Button
                 shape="round"
                 disabled={
-                  current === steps.length - 1 || !steps[current].canAdvance()
+                  current === stepTarget.length - 1 ||
+                  !stepTarget[current].canAdvance()
                 }
                 icon={<MaterialIcon path={mdiArrowRightCircle} />}
                 type="primary"
@@ -211,10 +263,10 @@ const PresentesDisponiveis: React.FC<Props> = () => {
               </Button>
             )}
 
-            {current === steps.length - 1 && (
+            {current === stepTarget.length - 1 && (
               <Button
                 shape="round"
-                disabled={current === steps.length}
+                disabled={current === stepTarget.length}
                 icon={<MaterialIcon path={mdiCheckAll} />}
                 type="primary"
                 onClick={() => {
