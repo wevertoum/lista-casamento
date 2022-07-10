@@ -1,0 +1,28 @@
+.list-content-choice {
+  display: flex;
+  justify-content: center;
+  @media screen and (max-width: 768px) {
+   flex-direction: column;
+   }
+  .choice-item {
+    border-radius: 16px;
+    height: 400px;
+    width: 400px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 16px;
+    margin: 4px 8px;
+    background-color: rebeccapurple;
+    background: #ffffff;
+    box-shadow: 5px 5px 32px #e6e6e6, -5px -5px 32px #ffffff;
+    &.selected {
+      border: 2px solid @primary-color;
+    }
+    @media screen and (max-width: 768px) {
+     width: 100%;
+    }
+  }
+}

@@ -11,4 +11,5 @@ namespace Models {
   }
 
   type TipoEntrega = "levar_no_dia" | "enviar_domicilio";
+  type TipoPresente = "presente" | "pix";
 }

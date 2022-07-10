@@ -21,6 +21,7 @@ import {
 import itensColletion from "utils/network/itensColletion";
 import presentesCollection from "utils/network/presentesCollection";
 import { database } from "utils/firebaseConfig";
+import ChoiceTipoPresente from "components/ChoiceTipoPresente";
 
 const { Step } = Steps;
 
@@ -30,7 +31,7 @@ const PresentesDisponiveis: React.FC<Props> = () => {
   const { nome } = router.query;
 
   const [current, setCurrent] = React.useState(0);
-
+  const [tipoPresente, setTipoPresente] = useState<Models.TipoPresente>("presente");
   const [opcoesLista, setOpcoesLista] = useState<Models.Item[]>([]);
   const [presente, setPresente] = useState<Models.Presente>(
     {} as Models.Presente
@@ -61,7 +62,17 @@ const PresentesDisponiveis: React.FC<Props> = () => {
 
   const steps = [
     {
-      title: "🧐",
+      title: "😎",
+      content: ChoiceTipoPresente({
+        onSelect: (tipoPresente: Models.TipoPresente) => {
+          setTipoPresente(tipoPresente);
+        },
+        tipoPresente,
+      }),
+      canAdvance: () => tipoPresente !== undefined,
+    },
+    {
+      title: "🎁",
       content: ListagemPresentes({
         opcoesLista,
         onChange: (presentes) => {
@@ -70,6 +81,7 @@ const PresentesDisponiveis: React.FC<Props> = () => {
         selectedPresentes: presente.presentes,
         nome: nome as string,
       }),
+      canAdvance: () => presente.presentes && presente.presentes.length > 0,
     },
     {
       title: "📋",
@@ -84,7 +96,9 @@ const PresentesDisponiveis: React.FC<Props> = () => {
         onUploadFoto: (urlFoto) => {
           setPresente({ ...presente, urlFoto });
         },
+        tipoPresente,
       }),
+      canAdvance: () => presente.tipoEntrega !== undefined,
     },
     {
       title: "✅",
@@ -92,6 +106,7 @@ const PresentesDisponiveis: React.FC<Props> = () => {
         presente,
         nome: nome as string,
       }),
+      canAdvance: () => true,
     },
   ];
 
@@ -186,8 +201,7 @@ const PresentesDisponiveis: React.FC<Props> = () => {
               <Button
                 shape="round"
                 disabled={
-                  current === steps.length - 1 ||
-                  (current === 1 && !presente.presentes)
+                  current === steps.length - 1 || !steps[current].canAdvance()
                 }
                 icon={<MaterialIcon path={mdiArrowRightCircle} />}
                 type="primary"

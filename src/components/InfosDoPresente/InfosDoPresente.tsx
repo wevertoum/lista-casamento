@@ -24,12 +24,14 @@ interface Props {
   onWriteMessage: (message: string) => void;
   onUploadFoto: (urlFoto: string) => void;
   presente: Models.Presente;
+  tipoPresente?: Models.TipoPresente;
 }
 const InfosDoPresente: React.FC<Props> = ({
   onSelectTipoEntrega,
   onWriteMessage,
   onUploadFoto,
   presente,
+  tipoPresente,
 }) => {
   const [width] = useWindowSize();
 
@@ -125,20 +127,26 @@ const InfosDoPresente: React.FC<Props> = ({
             <Divider />
           </div>
           <div className="infos-content">
-            <Row
-              style={{ marginLeft: 0, marginRight: 0, width: "100%" }}
-              gutter={[16, 16]}
-            >
-              {(presente.presentes || []).map((item, i) => (
-                <Col
-                  style={{ display: "flex", justifyContent: "center" }}
-                  span={span}
-                  key={i}
-                >
-                  <ItemPresente item={item} />
-                </Col>
-              ))}
-            </Row>
+            {tipoPresente === "presente" ? (
+              <Row
+                style={{ marginLeft: 0, marginRight: 0, width: "100%" }}
+                gutter={[16, 16]}
+              >
+                {(presente.presentes || []).map((item, i) => (
+                  <Col
+                    style={{ display: "flex", justifyContent: "center" }}
+                    span={span}
+                    key={i}
+                  >
+                    <ItemPresente item={item} />
+                  </Col>
+                ))}
+              </Row>
+            ) : (
+              <Typography.Title level={3}>
+                Você escolher contribuir com pix
+              </Typography.Title>
+            )}
           </div>
           <Divider />
           <div className="infos-description-entrega">
