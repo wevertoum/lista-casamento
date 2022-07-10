@@ -181,7 +181,7 @@ const InfosDoPresente: React.FC<Props> = ({
         <>
           <Alert
             message={"Dados para PIX"}
-            description={"chave pix: 031.831.012-03"}
+            description={"chave pix: 046.858.191-01"}
             type={"info"}
             showIcon
           />
