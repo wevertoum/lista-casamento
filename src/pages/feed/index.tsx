@@ -3,7 +3,6 @@ import ListPresentesNome from "components/ListPresentesNome";
 import PageContainer from "components/PageContainer/PageContainer";
 import { onSnapshot, orderBy, query } from "firebase/firestore";
 import useWindowSize from "hooks/useWindowSize";
-import Image from "next/image";
 import React, { useEffect, useMemo, useState } from "react";
 import presentesCollection from "utils/network/presentesCollection";
 require("./Feed.less");
@@ -76,12 +75,10 @@ const Feed: React.FC<Props> = () => {
                 <div className="item-feed">
                   <div className="header">
                     <div className="imagem">
-                      <Image
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
                         className="display-image"
-                        objectFit="cover"
                         src={presente.urlFoto || "/default_user.svg"}
-                        height={120}
-                        width={120}
                         alt="Foto de perfil"
                       />
                     </div>
