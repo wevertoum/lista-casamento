@@ -34,7 +34,10 @@ const ConfirmFeedback: React.FC<Props> = ({ presente, nome, tipoPresente }) => {
           </Typography.Text>
         </>
       )}
-      <ListPresentesNome tipo={presente.tipo} itens={presente.presentes} />
+      <ListPresentesNome
+        tipo={presente.tipo || tipoPresente}
+        itens={presente.presentes}
+      />
       <Divider />
       <Typography.Title level={3}>
         Finalize abaixo o registro e aguarde a confirmação do casal
