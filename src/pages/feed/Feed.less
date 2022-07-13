@@ -18,17 +18,23 @@
       .header {
         display: flex;
         height: fit-content;
+        @media screen and (max-width: 768px) {
+          flex-direction: column;
+        }
 
         .imagem {
           display: flex;
           flex: 0.35;
           align-items: center;
+          justify-content: center;
+          @media screen and (max-width: 768px) {
+            margin: 16px 0;
+          }
+
           .display-image {
             border-radius: 16px;
-            width: fit-content;
             max-width: 120px;
-            // height: fit-content;
-            
+            width: fit-content;
           }
         }
         .textos {
