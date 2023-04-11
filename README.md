@@ -1,3 +1,3 @@
 # lista-casamento
 
-Um site pra gerenciar uma lista de casamentos e fazer um feed
+[click to access](https://gui-nana.vercel.app/) 
