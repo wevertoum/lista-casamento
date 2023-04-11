@@ -1,26 +1,26 @@
 import { mdiArrowLeftCircle, mdiArrowRightCircle, mdiCheckAll } from "@mdi/js";
-import { Typography, Steps, Button, message, Modal } from "antd";
+import { Typography, Steps, Button } from "antd";
 import ConfirmFeedback from "components/ConfirmFeedback";
 import InfosDoPresente from "components/InfosDoPresente";
 import ListagemPresentes from "components/ListagemPresentes";
 import MaterialIcon from "components/MaterialIcon";
 import PageContainer from "components/PageContainer/PageContainer";
 import { useRouter } from "next/router";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 require("./PresentesDisponiveis.less");
 import {
-  addDoc,
-  doc,
-  getDoc,
+  // addDoc,
+  // doc,
+  // getDoc,
   onSnapshot,
   orderBy,
   query,
-  serverTimestamp,
-  updateDoc,
+  // serverTimestamp,
+  // updateDoc,
 } from "firebase/firestore";
 import itensColletion from "utils/network/itensColletion";
-import presentesCollection from "utils/network/presentesCollection";
-import { database } from "utils/firebaseConfig";
+// import presentesCollection from "utils/network/presentesCollection";
+// import { database } from "utils/firebaseConfig";
 import ChoiceTipoPresente from "components/ChoiceTipoPresente";
 
 const { Step } = Steps;
@@ -167,52 +167,52 @@ const PresentesDisponiveis: React.FC<Props> = () => {
   //   });
   // };
 
-  const postPresenteFirebase = useCallback(
-    (presente: Models.Presente) => {
-      const presentToSend = {
-        ...presente,
-        tipo: tipoPresente,
-        presentes: tipoPresente === "presente" ? presente.presentes : [],
-      } as Models.Presente;
+  // const postPresenteFirebase = useCallback(
+  //   (presente: Models.Presente) => {
+  //     const presentToSend = {
+  //       ...presente,
+  //       tipo: tipoPresente,
+  //       presentes: tipoPresente === "presente" ? presente.presentes : [],
+  //     } as Models.Presente;
 
-      addDoc(presentesCollection, presentToSend).then((ref) => {
-        updateDoc(ref, { id: ref.id });
-        message.success("Presente enviado!!");
-        Modal.success({
-          title: "Presente enviado ✅",
-          content: `${nome}, a parte mais importante desse momento é ter por perto pessoas que nós amamos e que caminham com a gente! Muito obrigada por abençoar a nossa casa, mas a sua amizade e as suas orações são o maior presente de todos, nos vemos! 💝`,
-          okText: "Feed 🎉",
-          onOk: () => {
-            router.push("/feed");
-          },
-          cancelText: "Outro presente",
-          onCancel: () => {
-            router.reload();
-          },
-          closable: false,
-          centered: true,
-          okCancel: true,
-        });
-      });
+  //     addDoc(presentesCollection, presentToSend).then((ref) => {
+  //       updateDoc(ref, { id: ref.id });
+  //       message.success("Presente enviado!!");
+  //       Modal.success({
+  //         title: "Presente enviado ✅",
+  //         content: `${nome}, a parte mais importante desse momento é ter por perto pessoas que nós amamos e que caminham com a gente! Muito obrigada por abençoar a nossa casa, mas a sua amizade e as suas orações são o maior presente de todos, nos vemos! 💝`,
+  //         okText: "Feed 🎉",
+  //         onOk: () => {
+  //           router.push("/feed");
+  //         },
+  //         cancelText: "Outro presente",
+  //         onCancel: () => {
+  //           router.reload();
+  //         },
+  //         closable: false,
+  //         centered: true,
+  //         okCancel: true,
+  //       });
+  //     });
 
-      if (tipoPresente === "presente") {
-        presente.presentes.forEach(async (item) => {
-          const itemRef = doc(database, "itens", item.id);
-          const docSnap = await getDoc(itemRef);
-          const itemObj = docSnap.data() as Models.Item;
-          if (itemObj.qtd === 1) {
-            await updateDoc(itemRef, { qtd: 0, status: "indisponivel" });
-          } else {
-            await updateDoc(itemRef, {
-              qtd: itemObj.qtd - 1,
-              status: "disponivel",
-            });
-          }
-        });
-      }
-    },
-    [nome, router, tipoPresente]
-  );
+  //     if (tipoPresente === "presente") {
+  //       presente.presentes.forEach(async (item) => {
+  //         const itemRef = doc(database, "itens", item.id);
+  //         const docSnap = await getDoc(itemRef);
+  //         const itemObj = docSnap.data() as Models.Item;
+  //         if (itemObj.qtd === 1) {
+  //           await updateDoc(itemRef, { qtd: 0, status: "indisponivel" });
+  //         } else {
+  //           await updateDoc(itemRef, {
+  //             qtd: itemObj.qtd - 1,
+  //             status: "disponivel",
+  //           });
+  //         }
+  //       });
+  //     }
+  //   },
+  //   [nome, router, tipoPresente]
+  // );
 
   const stepTarget = tipoPresente === "pix" ? stepsPix : stepsPresente;
 
@@ -270,11 +270,11 @@ const PresentesDisponiveis: React.FC<Props> = () => {
                 icon={<MaterialIcon path={mdiCheckAll} />}
                 type="primary"
                 onClick={() => {
-                  postPresenteFirebase({
-                    ...presente,
-                    nome: nome as string,
-                    timestamp: serverTimestamp(),
-                  });
+                  // postPresenteFirebase({
+                  //   ...presente,
+                  //   nome: nome as string,
+                  //   timestamp: serverTimestamp(),
+                  // });
                 }}
               >
                 Finalizar
